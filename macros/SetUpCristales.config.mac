@@ -1,0 +1,26 @@
+### GEOMETRY
+#/Geometry/SetUpCristales/visibility_ false
+
+
+### GENERATOR
+/Generator/IonGenerator/region SOURCE
+/Generator/IonGenerator/atomic_number 11
+/Generator/IonGenerator/mass_number 22
+
+### PHYSICS
+#/process/optical/processActivation Scintillation true
+#/process/optical/processActivation Cerenkov      true
+
+### VERBOSITIES
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+/process/em/verbose 0
+
+/nexus/random_seed 300825
+
+### OUTPUT FILE
+/petalosim/persistency/start_id 0
+/petalosim/persistency/output_file setup_cristales_filter
+
