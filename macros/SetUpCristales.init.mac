@@ -1,0 +1,24 @@
+### PHYSICS
+/PhysicsList/RegisterPhysics G4EmStandardPhysics_option4
+/PhysicsList/RegisterPhysics G4OpticalPhysics
+/PhysicsList/RegisterPhysics G4DecayPhysics
+/PhysicsList/RegisterPhysics G4RadioactiveDecayPhysics
+/PhysicsList/RegisterPhysics G4StepLimiterPhysics
+/PhysicsList/RegisterPhysics PetaloPhysics
+
+### GEOMETRY
+/nexus/RegisterGeometry SetUpCristales
+
+### GENERATOR
+/nexus/RegisterGenerator IonGenerator
+
+### ACTIONS
+/nexus/RegisterRunAction DefaultRunAction
+/nexus/RegisterEventAction PetSensorsEventAction
+#/nexus/RegisterEventAction PetaloEventAction
+/nexus/RegisterTrackingAction PetaloTrackingAction
+#/nexus/RegisterSteppingAction PetAnalysisSteppingAction
+
+/nexus/RegisterPersistencyManager PetaloPersistencyManager
+
+/nexus/RegisterMacro macros/SetUpCristales.config.mac
