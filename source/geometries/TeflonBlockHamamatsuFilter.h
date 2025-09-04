@@ -37,6 +37,7 @@ public:
 
   G4double GetTeflonThickness() const;
   G4double GetTeflonRecessDepth() const;
+  G4LogicalVolume* GetRecessLogic() const;
 
  private:
 
@@ -49,7 +50,9 @@ public:
   
   /// Messenger for the definition of control commands
   G4GenericMessenger* msg_;
-
+  
+  // Logical volume of the recess for placing the filter
+  G4LogicalVolume* teflon_recess_logic_;
 
 
 };
@@ -59,5 +62,6 @@ inline void TeflonBlockHamamatsuFilter::SetIoniSD(IonizationSD* ionisd) {ionisd_
 inline void TeflonBlockHamamatsuFilter::SetMaxStepSize(G4double step_size) {max_step_size_ = step_size;}
 inline G4double TeflonBlockHamamatsuFilter::GetTeflonThickness() const {return teflon_block_thick_;}
 inline G4double TeflonBlockHamamatsuFilter::GetTeflonRecessDepth() const {return teflon_recess_depth_;}
+inline G4LogicalVolume* TeflonBlockHamamatsuFilter::GetRecessLogic() const {return teflon_recess_logic_;}
 
 #endif

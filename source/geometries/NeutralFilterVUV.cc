@@ -35,7 +35,7 @@ void NeutralFilterVUV::Construct()
   G4double filter_xy = 50 * mm;
 
   G4Box* filter_solid =
-      new G4Box("FILTER", filter_xy/2., filter_xy/2., filter_depth_/2);
+      new G4Box("FILTER", filter_xy/2., filter_xy/2., filter_depth_/2.);
 
   G4Material* fused_silica = materials::FusedSilica();
 
@@ -71,7 +71,7 @@ void NeutralFilterVUV::Construct()
                                 7.59384 * eV, 7.69538 * eV, 7.79692 * eV, 7.89846 * eV,
                                 8.      * eV};
 
-  G4double absorption_length_lin_25[entries] = {26.96192 * mm, 26.84297 * mm, 26.72887 * mm, 26.57202 * mm,
+  G4double absorption_length_lin[entries] = {26.96192 * mm, 26.84297 * mm, 26.72887 * mm, 26.57202 * mm,
                                                 26.15263 * mm, 25.73203 * mm, 25.36811 * mm, 25.07453 * mm,
                                                 25.02241 * mm, 24.76914 * mm, 24.53542 * mm, 24.48358 * mm,
                                                 24.36648 * mm, 24.26932 * mm, 24.14035 * mm, 23.95741 * mm,
@@ -119,6 +119,30 @@ void NeutralFilterVUV::Construct()
                                                 9.83539 * mm,  9.83543 * mm,  9.83552 * mm,  9.83571 * mm,
                                                 9.83601 * mm};
 
+   G4double absorption_length_100[entries] = {26.96192 * mm, 26.84297 * mm, 26.72887 * mm, 26.57202 * mm,
+                                              26.15263 * mm, 25.73203 * mm, 25.36811 * mm, 25.07453 * mm,
+                                              25.02241 * mm, 24.76914 * mm, 24.53542 * mm, 24.48358 * mm,
+                                              24.36648 * mm, 24.26932 * mm, 24.14035 * mm, 23.95741 * mm,
+                                              23.81487 * mm, 23.70949 * mm, 23.47045 * mm, 23.36710 * mm,
+                                              23.27099 * mm, 23.06620 * mm, 22.90031 * mm, 22.78820 * mm,
+                                              22.69084 * mm, 22.59654 * mm, 22.42481 * mm, 22.30474 * mm,
+                                              22.24708 * mm, 22.02781 * mm, 21.93943 * mm, 21.82708 * mm,
+                                              21.64325 * mm, 21.49492 * mm, 21.37272 * mm, 21.27086 * mm,
+                                              21.14495 * mm, 21.00218 * mm, 20.94942 * mm, 20.73323 * mm,
+                                              20.66441 * mm, 20.66505 * mm, 20.43412 * mm, 20.29423 * mm,
+                                              20.23625 * mm, 20.02656 * mm, 19.90508 * mm, 19.86716 * mm,
+                                              19.63604 * mm, 19.38718 * mm, 19.25203 * mm, 18.95896 * mm,
+                                              18.71424 * mm, 18.45051 * mm, 18.06848 * mm, 17.63308 * mm,
+                                              17.08074 * mm, 16.57175 * mm, 15.91383 * mm, 15.11595 * mm,
+                                              14.31973 * mm, 13.64823 * mm, 13.06188 * mm, 12.52931 * mm,
+                                              12.06524 * mm, 11.69885 * mm, 11.36311 * mm, 11.05203 * mm,
+                                              10.72835 * mm, 10.25560 * mm,  9.6547  * mm,  1e6     * m,
+                                               1e6     * m,   1e6     * m,   1e6     * m,   1e6     * m,
+                                               1e6     * m,   1e6     * m,   1e6     * m,   1e6     * m,
+                                               1e6     * m,   1e6     * m,   1e6     * m,   1e6     * m,
+                                               1e6     * m,   1e6     * m,   1e6     * m,   1e6     * m,
+                                               1e6     * m};
+
   G4double refraction_index_m110[entries] = {1.45020, 1.45035, 1.45049, 1.45064, 1.45079,
                                              1.45095, 1.45110, 1.45126, 1.45143, 1.45159,
                                              1.45177, 1.45194, 1.45212, 1.45230, 1.45249,
@@ -160,7 +184,7 @@ void NeutralFilterVUV::Construct()
   // Add filter properties due to the fused silica material
   G4MaterialPropertiesTable* silica_mpt = new G4MaterialPropertiesTable();
   silica_mpt->AddProperty("RINDEX", energies, refraction_index_25, entries);
-  silica_mpt->AddProperty("ABSLENGTH", energies, absorption_length_lin_25, entries);
+  silica_mpt->AddProperty("ABSLENGTH", energies, absorption_length_lin, entries);
 
   fused_silica->SetMaterialPropertiesTable(silica_mpt);
 

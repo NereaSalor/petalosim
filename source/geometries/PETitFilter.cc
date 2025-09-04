@@ -140,7 +140,6 @@ void PETitFilter::BuildBox()
   G4LogicalVolume* teflon_block_hama_filt_logic = teflon_block_hama_filt.GetLogicalVolume();
 
   G4double teflon_block_filter_thick = teflon_block_hama_filt.GetTeflonThickness();
-  G4double teflon_recess_depth = teflon_block_hama_filt.GetTeflonRecessDepth();
   G4double block_z_pos_filt = ih_z_size/2. + teflon_block_filter_thick/2.;
 
   G4RotationMatrix rot_teflon;
@@ -166,12 +165,12 @@ void PETitFilter::BuildBox()
   NeutralFilterVUV filter_VUV = NeutralFilterVUV();
   filter_VUV.Construct();
   G4LogicalVolume* filter_VUV_logic = filter_VUV.GetLogicalVolume();
-  G4double filter_depth = filter_VUV.GetFilterDepth();
-  G4double dist_teflon_filter = 0.5 * mm;
-  G4double filter_z_pos = ih_z_size/2. + teflon_block_filter_thick - teflon_recess_depth + filter_depth/2. + dist_teflon_filter;
+  //Teflon recess logical volume to insert the filter without overlaps
+  G4LogicalVolume* recess_logic = teflon_block_hama_filt.GetRecessLogic();
 
-  new G4PVPlacement(0, G4ThreeVector(0., 0., filter_z_pos), filter_VUV_logic,
-                    "FILTER_VUV", active_logic_, false, 0, false);
+  new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), filter_VUV_logic,
+                      "FILTER_VUV", recess_logic , false, 0, false);
+
 
   if (visibility_) {
     G4VisAttributes block_col = nexus::LightBlue();

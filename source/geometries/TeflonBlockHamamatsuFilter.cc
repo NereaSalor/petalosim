@@ -30,7 +30,7 @@ TeflonBlockHamamatsuFilter::TeflonBlockHamamatsuFilter(): GeometryBase(),
                                               visibility_(0),
                                               teflon_block_thick_(35.75 * mm),
                                               max_step_size_(1.*mm),
-                                              teflon_recess_depth_(3 * mm)
+                                              teflon_recess_depth_(3. * mm)
 {
 
   // Messenger
@@ -48,16 +48,16 @@ TeflonBlockHamamatsuFilter::~TeflonBlockHamamatsuFilter()
 
 void TeflonBlockHamamatsuFilter::Construct()
 {
-  G4double teflon_block_xy = 67 * mm;
+  G4double teflon_block_xy = 67. * mm;
 
   // Recess dimensions
-  G4double recess_x = 50 * mm;
-  G4double recess_y = 58 * mm;
+  G4double recess_x = 50. * mm;
+  G4double recess_y = 58. * mm;
 
   //Absolute positions of recess from center
-  G4double recess_y_center = (teflon_block_xy - recess_y)/2. * mm;
-  G4double recess_z_center = -teflon_block_thick_ + 1. * mm;
-  G4ThreeVector recess_pos(0, recess_y_center, recess_z_center);
+  G4double recess_y_center = (teflon_block_xy - recess_y - 0.01 * mm)/2.;
+  G4double recess_z_center = -teflon_block_thick_/2. + (teflon_recess_depth_ + 0.4 * mm)/2.;
+  G4ThreeVector recess_pos(0, recess_y_center, + recess_z_center + 0.01*mm);
 
   G4double teflon_offset_x = 3.64 * mm;
   G4double teflon_offset_y = 3.7  * mm;
@@ -66,9 +66,10 @@ void TeflonBlockHamamatsuFilter::Construct()
   G4double teflon_central_offset_y = 3.11 * mm;
 
   G4double teflon_holes_xy    = 5.75 * mm;
-  G4double teflon_holes_depth = 5    * mm;
+  G4double teflon_holes_depth = 5.    * mm;
 
   G4double dist_between_holes_xy = 1.75 * mm;
+
 
   // Create de teflon block
   G4Box* teflon_block_solid =
@@ -79,7 +80,7 @@ void TeflonBlockHamamatsuFilter::Construct()
 
   // Create de substraction block
   G4Box* teflon_recess_solid =
-    new G4Box("TEFLON_RECESS", recess_x/2., recess_y/2., (teflon_recess_depth_ + 1.)/2.);
+    new G4Box("TEFLON_RECESS", recess_x/2., recess_y/2., (teflon_recess_depth_ + 0.4 * mm)/2.);
 
   G4SubtractionSolid* subtracted_block_solid =
     new G4SubtractionSolid("TEFLON_BLOCK_RECESS", teflon_block_solid, teflon_recess_solid, 0, recess_pos);
@@ -87,6 +88,13 @@ void TeflonBlockHamamatsuFilter::Construct()
   G4LogicalVolume* teflon_block_logic =
     new G4LogicalVolume(subtracted_block_solid, teflon, "TEFLON_BLOCK");
     this->SetLogicalVolume(teflon_block_logic);
+
+  // Create the logic volume for the recess teflon to avoid overlaps
+  G4Material* LXe = G4NistManager::Instance()->FindOrBuildMaterial("G4_lXe");
+  G4LogicalVolume* teflon_recess_logic = new G4LogicalVolume(teflon_recess_solid, LXe, "TEFLON_RECESS_LOGIC");
+  teflon_recess_logic_ = teflon_recess_logic; //To be able to call it
+  new G4PVPlacement(0, recess_pos, teflon_recess_logic, "TEFLON_RECESS_PV",
+                    teflon_block_logic, false, 0, false);
 
   // Holes in the block which are filled with LXe and defined as LXe vols
   G4double dist_four_holes = 4* teflon_holes_xy + 3*dist_between_holes_xy;
