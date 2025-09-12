@@ -24,13 +24,16 @@ class LYSOCrystal6x6 : public GeometryBase
   void Construct();
   
   G4double GetCrystalDepth() const;
+  G4double GetCrystalXY() const;
   
  private:
  
   G4double LYSO_z_;
+  G4double LYSO_xy_;
 
 };
 
 inline G4double LYSOCrystal6x6::GetCrystalDepth() const {return LYSO_z_;}
+inline G4double LYSOCrystal6x6::GetCrystalXY() const {return LYSO_xy_;}
 
 #endif

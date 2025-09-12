@@ -21,7 +21,8 @@ using namespace nexus;
 using namespace CLHEP;
 
 LYSOCrystal6x6::LYSOCrystal6x6() : GeometryBase(),
-                                   LYSO_z_(5. * mm)
+                                   LYSO_z_(5. * mm),
+                                   LYSO_xy_(6. * mm)
 {
 }
 
@@ -32,9 +33,8 @@ LYSOCrystal6x6::~LYSOCrystal6x6()
 
 void LYSOCrystal6x6::Construct()
 {
-  G4double LYSO_xy = 6. * mm;
   G4Box* lyso_solid =
-      new G4Box("CRYSTAL", LYSO_xy/2., LYSO_xy/2., LYSO_z_/2.);
+      new G4Box("CRYSTAL", LYSO_xy_/2., LYSO_xy_/2., LYSO_z_/2.);
 
   G4Material* lyso = petmaterials::LYSO();
   lyso->SetMaterialPropertiesTable(petopticalprops::LYSO());
@@ -44,7 +44,7 @@ void LYSOCrystal6x6::Construct()
 
   this->SetLogicalVolume(lyso_logic);
 
-  
+
   G4VisAttributes crystal_col = G4Colour::Yellow();
   lyso_logic->SetVisAttributes(crystal_col);
 
