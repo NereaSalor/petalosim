@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------
 
 #include "TeflonBlockHamamatsuFilter.h"
+#include "PetIonizationSD.h"
 
-#include "nexus/IonizationSD.h"
 #include "nexus/Visibilities.h"
 #include "nexus/FactoryBase.h"
 

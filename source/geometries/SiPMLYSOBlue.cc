@@ -10,9 +10,9 @@
 #include "ToFSD.h"
 #include "PetMaterialsList.h"
 #include "PetOpticalMaterialProperties.h"
+#include "PetIonizationSD.h"
 
 #include "nexus/Visibilities.h"
-#include "nexus/IonizationSD.h"
 
 #include <G4Box.hh>
 #include <G4LogicalVolume.hh>
